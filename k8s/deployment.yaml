@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: bran
+  name: bran
+  namespace: fampay
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bran
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: bran
+    spec:
+      imagePullSecrets:
+      - name: docker
+      containers:
+      - image: pragadeesh196/bran:latest
+        name: bran
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - secretRef:
+            name: bran-secret
+        - configMapRef:
+            name: bran-cm
+        resources:
+          requests:
+           cpu: "10m"
+          limits:
+           cpu: "50m"
+status: {}
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: bran-hpa-service
+  namespace: fampay
+  labels:
+    app: bran
+spec:
+  ports:
+  - port: 8000
+  selector:
+    app: bran
