@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   creationTimestamp: null
+  namespace: testing
   labels:
     app: bran
   name: bran
@@ -45,6 +46,7 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: testing
   name: bran-hpa-service
   labels:
     app: bran
