@@ -5,7 +5,6 @@ metadata:
   labels:
     app: bran
   name: bran
-  namespace: fampay
 spec:
   replicas: 1
   selector:
@@ -47,7 +46,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: bran-hpa-service
-  namespace: fampay
   labels:
     app: bran
 spec:
