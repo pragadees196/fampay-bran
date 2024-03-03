@@ -25,15 +25,10 @@ spec:
       imagePullSecrets:
       - name: docker
       containers:
-      - image: pragadeesh196/bran:latest
+      - image: pragadeesh196/hodr1:latest
         name: bran
         ports:
         - containerPort: 8000
-        envFrom:
-        - secretRef:
-            name: bran-secret
-        - configMapRef:
-            name: bran-cm
         resources:
           requests:
            cpu: "10m"
